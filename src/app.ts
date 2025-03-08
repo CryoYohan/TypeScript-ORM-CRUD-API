@@ -2,9 +2,15 @@ import { AppDataSource, ensureDbExists } from "./_helpers/db"
 import express from 'express'
 import { userRouter } from './users/users.routes'
 import errorHandler from './_middlewares/error-handler'
+import * as dotevnv from "dotenv"
 
 const app = express()
-const port = process.env.PORT as unknown as number || 3000
+dotevnv.config();
+
+if (!process.env.PORT) {
+    console.log(`No port value specified...`);
+}
+const PORT = parseInt(process.env.PORT as string, 10);
 
 //middlewares
 app.use(express.json())
@@ -35,6 +41,6 @@ app.use(errorHandler);
 
 
 //start server
-app.listen(port, () => {
-    console.log(`Server started at http://localhost:3000`)
+app.listen(PORT, () => {
+    console.log(`Server started at http://localhost:${PORT}`)
 })
