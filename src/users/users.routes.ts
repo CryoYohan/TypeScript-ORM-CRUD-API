@@ -1,6 +1,10 @@
-import express, { Request, Response } from "express";
+import { Router } from 'express'
+import userControllers from './user.controller'
 
-export const userRouter = express.Router();
+export const userRouter = Router()
 
-
-userRouter.get('/users')
+userRouter.get('/', userControllers.getAll)
+userRouter.get('/:id', userControllers.getById)
+userRouter.post('/', userControllers.createSchema, userControllers.create)
+userRouter.put('/:id', userControllers.updateSchema, userControllers.update)
+userRouter.delete('/:id', userControllers.delete)
